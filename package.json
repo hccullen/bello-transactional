@@ -3,9 +3,6 @@
   "version": "1.0.2",
   "description": "Bulletproof Email",
   "main": "index.js",
-  "scripts": {
-    "postinstall": "cp nodemailer.config.js.example nodemailer.config.js"
-  },
   "repository": {
     "type": "git",
     "url": "git@github.com:koomai/bulletproof-email.git"
