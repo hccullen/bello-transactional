@@ -1,0 +1,106 @@
+// These are the styles to make some of the templates look extra nice.
+// Feel free to remove these styles for production!
+
+// Body Styles
+body,
+html,
+.body {
+  background: $light-gray !important;
+}
+
+.container.header {
+  background: #ffffff;
+}
+
+.body-drip {
+  border-top: 8px solid #663399;
+}
+.body-plain {
+  background: #ffffff !important;
+}
+
+.padding-medium td{
+  padding-top: 20px;
+}
+
+// Full Width Headers
+.header {
+  background: $secondary-color;
+  .logo {
+    width: 40px;
+    padding: 16px;
+  }
+}
+.header2 {
+  background: $secondary-color;
+  .body-plain {
+    border-radius: 5px 5px 0 0;
+  }
+}
+
+.header .columns {
+  padding-bottom: 0;
+}
+
+.header p {
+  color: #fff;
+  padding-top: 15px;
+}
+
+.header .wrapper-inner {
+  padding: 20px;
+}
+
+.header .container {
+  background: transparent;
+}
+
+// Social Media
+table.button.facebook table td {
+  background: #3B5998 !important;
+  border-color: #3B5998;
+}
+
+table.button.twitter table td {
+  background: #1daced !important;
+  border-color: #1daced;
+}
+
+table.button.google table td {
+  background: #DB4A39 !important;
+  border-color: #DB4A39;
+}
+
+.wrapper.secondary {
+  background: $light-gray;
+}
+
+hr {
+  max-width:100px;
+  border-width: 1px;
+  border-color: #dee2e6;
+  border-style: solid;
+}
+
+
+// Actor Info Box (Notifications)
+.notification {
+  h4 {
+    font-size: 20px;
+    margin-bottom: 0;
+    padding-left: 16px;
+    color: $primary-color;
+  }
+  p.meta {
+    font-size: 14px;
+    padding-left: 16px;
+    color: $dark-gray;
+  }
+  img.profile {
+    max-width: 48px;
+    max-height: 48px;
+    height: auto;
+    width: 100%;
+    border-radius: $global-rounded;
+  }
+}

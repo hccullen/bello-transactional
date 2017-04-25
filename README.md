@@ -1,205 +1,125 @@
-## Bulletproof Email  
+# Foundation for Emails Template
 
-**Bulletproof Email** is an HTML email template builder powered by Gulp.
+[![devDependency Status](https://david-dm.org/zurb/foundation-emails-template/dev-status.svg)](https://david-dm.org/zurb/foundation-emails-template#info=devDependencies)
 
-The main features are:
+**Please open all issues with this template on the main [Foundation for Emails](http://github.com/zurb/foundation-emails/issues) repo.**
 
-*   A basic front-end templating system with layouts and partials
-*   Modular sections for different email layouts
-*   SASS stylesheets
-*   CSS inliner
-*   Images and HTML Minifier
-*   Gulp build tool and BrowserSync for live reloading
-*   Send test emails via [Nodemailer](https://github.com/andris9/nodemailer)
-*   Gulp tasks for an efficient workflow  
+This is the official starter project for [Foundation for Emails](http://foundation.zurb.com/emails), a framework for creating responsive HTML devices that work in any email client. It has a Gulp-powered build system with these features:
 
-Bulletproof Email utilises [Zurb Ink](http://zurb.com/ink/templates.php) for its starter templates – however, this is not a requirement.
+- Handlebars HTML templates with [Panini](http://github.com/zurb/panini)
+- Simplified HTML email syntax with [Inky](http://github.com/zurb/inky)
+- Sass compilation
+- Image compression
+- Built-in BrowserSync server
+- Full email inlining process
 
-### Getting started
+## Installation
 
-##### Install node.js
+To use this template, your computer needs [Node.js](https://nodejs.org/en/) 0.12 or greater. The template can be installed with the Foundation CLI, or downloaded and set up manually.
 
-You can download it from [nodejs.org](https://nodejs.org/)
+### Using the CLI
 
-##### Ensure you have the latest version of the npm package manager
+Install the Foundation CLI with this command:
 
-`sudo npm install npm -g`
-
-##### Install gulp globally
-
-`npm install --global gulp`
-
-##### Install the gulp plugins in package.json
-
-```shell
-$ npm install
-# Or using Yarn
-$ yarn install
+```bash
+npm install foundation-cli --global
 ```
 
-#### Usage
+Use this command to set up a blank Foundation for Emails project:
 
-`gulp serve` - starts a local webserver on **[http://localhost:8080](http://localhost:8080)**  
-`gulp serve --port=8888` - starts a local webserver on **[http://localhost:8888](http://localhost:8888)**  
-`gulp serve --open` - opens the URL on your default browser automatically.  
-`gulp serve -o` - alias for the above task  
+```bash
+foundation new --framework emails
+```
 
-`gulp build` - builds production ready files in *dist/production* folder.  
-`gulp build --minify` - minifies your HTML files  
-`gulp build --zip` - builds files + creates a zip file of your images directory (for Campaign Monitor)  
-`gulp build --zip=all` - builds files and creates a zip file of everything (for Mailchimp)  
+The CLI will prompt you to give your project a name. The template will be downloaded into a folder with this name.
 
-`gulp mail --template=NAME` - send a test email using your default configuration in `nodemailer.config.js`  
-`gulp mail -t NAME` - alias for the above task  
-`gulp mail --template=NAME --to=email@example.com --subject='Lorem Ipsum'` - send a test email with overrides  
+### Manual Setup
 
-`gulp copy --template=NAME` - copies your built template to the clipboard  
-`gulp copy -t NAME` - alias for the above task  
+To manually set up the template, first download it with Git:
 
-`gulp clone --from=NAME --to=NEW` - clones template NAME into NEW  
+```bash
+git clone https://github.com/zurb/foundation-emails-template projectname
+```
 
-`gulp remove --template=NAME` - removes template NAME from source and build directories  
-`gulp remove -t NAME` - alias for the above task  
+Then open the folder in your command line, and install the needed dependencies:
 
-`gulp clean` - empty your build directories  
+```bash
+cd projectname
+npm install
+```
 
-Continue reading below for more details  
+## Build Commands
 
-### Working with files
+Run `npm start` to kick off the build process. A new browser tab will open with a server pointing to your project files.
 
-All files are in the *source* folder organised into the following:
+Run `npm run build` to inline your CSS into your HTML along with the rest of the build process.
 
-*   **layouts** - layout templates
-*   **partials** - partial files, e.g. header, footer and other components
-*   **stylesheets** - SASS files for all styling
-*   **images** - all images go here
+Run `npm run litmus` to build as above, then submit to litmus for testing. *AWS S3 Account details required (config.json)*
 
-### HTML
-Your master templates in `layouts` consist of files from `partials`,
-following the convention of most templating systems.
+Run `npm run mail` to build as above, then send to specified email address for testing. *SMTP server details required (config.json)*
 
-The syntax to include files is:
+Run `npm run zip` to build as above, then zip HTML and images for easy deployment to email marketing services. 
 
-`{{ include('../partials/header.html') }}`
+## Litmus Tests (config.json)
 
-You can also pass variables to your partials.
+Testing in Litmus requires the images to be hosted publicly. The provided gulp task handles this by automating hosting to an AWS S3 account. Provide your Litmus and AWS S3 account details in the `example.config.json` and then rename to `config.json`. Litmus config, and `aws.url` are required, however if you follow the [aws-sdk suggestions](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html) you don't need to supply the AWS credentials into this JSON.
 
-##### *Layout*
-
-`{{ include('../partials/header.html', { "templateLabel" : "BASIC" }) }}`
-
-##### *Partial*
-
-`<span class="template-label">{{ templateLabel }}</span>`
-
-**Note**: Make sure there is a space after the opening double braces and before the closing double braces.
-
-
-### SASS
-
-The styles have been broken down into smaller modules in `stylesheets/modules`.
-
-Custom styling can be added to `stylesheets/modules/_custom.scss`.
-You can also create your own files and import them into `stylesheets/main.scss`.
-
-**Note:** Add all styling for smallers screens (< 580px) to `stylesheets/media-queries.scss`. This is included separately into the HTML files.
-
-### Local server
-
-Run `gulp serve` to start a local webserver.
-Visit **[http://localhost:8080](http://localhost:8080)** on your browser to test your templates.
-
-You can run `gulp serve --open` or `gulp serve -o` to open the URL automatically on your default browser. You can set this option permanently by setting `browsersync.open` to `true` in `gulp.config.js`.
-
-This also instantiates a watcher that:
-
-*   watches for changes in the source folder
-*   compiles SASS to CSS
-*   builds the HTML files from the templates
-*   outputs latest files to *dist/local* folder
-*   uses Browsersync to reload the browser
-
-You can also choose a different port by passing the `--port` argument, e.g. `gulp serve --port=8888`.  
-You can also change the port permanently in `gulp.config.js`.
-
-### Production files
-
-Run `gulp build` to generate production-ready files.
-
-This compiles production-ready HTML to the *dist/production* folder. It does the following:
-
-*   compiles SASS to CSS
-*   builds the HTML files from the templates
-*   brings the CSS inline into the HTML and removes the CSS files (except `media-queries.css`)
-*   minifies the images (only those that have changed)
-
-#### Minify
-
-If your newsletters are very long, you should minify the HTML so that Gmail doesn't
-[clip them](https://www.campaignmonitor.com/forums/topic/8088/what-rule-does-gmail-use-to-decide-when-to-clip-a-message/).
-
-Run `gulp build --minify` to minify your HTML files.
-
-#### Zip files
-
-Some email tools require zip files to upload new templates.
-
-Run `gulp build --zip` to compress images only.
-
-Run `gulp build --zip=all` to compress images and HTML.
-
-### Configuration
-
-All configuration options are in the `gulp.config.js` file.  
-To send emails using Nodemailer, update `nodemailer.config.js` with your email credentials and other mail options.
-
-### Nodemailer
-
-[Nodemailer](https://github.com/andris9/nodemailer) lets you quickly test your html email templates.
-
-First update `nodemailer.config.js` with your email credentials and default mail options.
-
-**Email credentials**
-
-```js
-transportOptions: {
-  service: 'mailgun',
-  auth: {
-    user: '',
-    pass: ''
+```json
+{
+  "aws": {
+    "region": "us-east-1",
+    "accessKeyId": "YOUR_ACCOUNT_KEY",
+    "secretAccessKey": "YOUR_ACCOUNT_SECRET",
+    "params": {
+        "Bucket": "elasticbeanstalk-us-east-1-THIS_IS_JUST_AN_EXAMPLE"
+    },
+    "url": "https://s3.amazonaws.com/elasticbeanstalk-us-east-1-THIS_IS_JUST_AN_EXAMPLE"
+  },
+  "litmus": {
+    "username": "YOUR_LITMUS@EMAIL.com",
+    "password": "YOUR_ACCOUNT_PASSWORD",
+    "url": "https://YOUR_ACCOUNT.litmus.com",
+    "applications": ["ol2003","ol2007","ol2010","ol2011","ol2013","chromegmailnew","chromeyahoo","appmail9","iphone5s","ipad","android4","androidgmailapp"]
   }
 }
 ```
 
-Nodemailer supports a lot of services -
-see the full list [here](https://github.com/andris9/nodemailer-wellknown#supported-services).
-To use your own SMTP configuration, see instructions [here](https://github.com/andris9/nodemailer-smtp-transport#usage).
+## Manual email tests (config.json)
 
-**Mail Options**
+Similar to the Litmus tests, you can have the emails sent to a specified email address. Just like with the Litmus tests, you will need to provide AWS S3 account details in `config.json`. You will also need to specify to details of an SMTP server. The email address to send to emails to can either by configured in the `package.json` file or added as a parameter like so: `npm run mail -- --to="example.com"`
 
-```js
-mailOptions: {
-  to: '',
-  from: '',
-  subject: ''
+```json
+{
+  "aws": {
+    "region": "us-east-1",
+    "accessKeyId": "YOUR_ACCOUNT_KEY",
+    "secretAccessKey": "YOUR_ACCOUNT_SECRET",
+    "params": {
+        "Bucket": "elasticbeanstalk-us-east-1-THIS_IS_JUST_AN_EXAMPLE"
+    },
+    "url": "https://s3.amazonaws.com/elasticbeanstalk-us-east-1-THIS_IS_JUST_AN_EXAMPLE"
+  },
+  "mail": {
+    "to": [
+      "example@domain.com"
+    ],
+    "from": "Company name <info@company.com",
+    "smtp": {
+      "auth": {
+        "user": "example@domain.com",
+        "pass": "12345678"
+      },
+      "host": "smtp.domain.com",
+      "secureConnection": true,
+      "port": 465
+    }
+  }
 }
 ```
 
-Set default `to`, `from` and `subject` values. `to` and `subject` can be overridden by passing arguments to the task.
+For a full list of Litmus' supported test clients(applications) see their [client list](https://litmus.com/emails/clients.xml).
 
-Finally, update `imageHost` with the full Url of the directory where your images are uploaded.
-The mail task replaces the relative paths with this Url.
+**Caution:** AWS Service Fees will result, however, are usually very low do to minimal traffic. Use at your own discretion.
 
-`gulp mail --template=NAME`
-`gulp mail -t NAME`
-`gulp mail --template=NAME --to=email@example.com --subject='Lorem Ipsum'`
 
-TODO: upload automatically to S3/Rackspace
-
-### Misc
-
-Run `gulp clean` to clean up your build directories.
-
-### Contributing
-
-To contribute, please fork the project and submit pull requests against the `develop` branch.
+# fragrancex
