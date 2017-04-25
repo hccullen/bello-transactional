@@ -11,7 +11,9 @@ html,
 .container.header {
   background: #ffffff;
 }
-
+.container.footer {
+  background: $light-gray;
+}
 .body-drip {
   border-top: 8px solid #663399;
 }
@@ -28,7 +30,7 @@ html,
   background: $secondary-color;
   .logo {
     width: 40px;
-    padding: 16px;
+    padding: 12px;
   }
 }
 .header2 {
@@ -83,7 +85,7 @@ hr {
 }
 
 
-// Actor Info Box (Notifications)
+// Notifications
 .notification {
   h4 {
     font-size: 20px;
@@ -104,3 +106,14 @@ hr {
     border-radius: $global-rounded;
   }
 }
+
+// Footer
+
+  p {
+    color: $medium-gray;
+    font-size: 14px;
+  }
+  a {
+    color: $medium-gray;
+    text-decoration: underline;
+  }
