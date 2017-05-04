@@ -1,25 +1,27 @@
 ---
-subject: My Drip Email Template Subject
-description: ABC
-emailTitle: New Post
-ctaText: Open Conversation
-ctaLink: https://google.com
+subject: Hello
+description: "You just got a new notification on Newsio. Read it here:"
+header: New Post
+
+actor_profile_image: http://newsio.com/img/team/ignas.jpg
+actor_name: Ignas Bagdonas
+message: tagged you in a post in 📯 Dev Announcements
+
+cta: Open Conversation
+url: https://google.com
+
+id: 7826781x783y2ce87y782
+address: Newsio, Købmagergade 53, Copenhagen, Denmark
+support: Support
+email_preferences: Manage Email Notifications
 ---
 
 {{> header}}
 
+
 {{> title}}
 
-    <row class="notification collapse">
-      <columns small="2" class="small-offset-1">
-          <img class="float-right profile" src="http://newsio.com/img/team/ignas.jpg">
-      </columns>
-      <columns small="8" large="8" class="content">
-        <h4>Ignas Bagdonas</h4>
-        <p class="meta">tagged you in a post in 📯 Dev Announcements</p>
-
-      </columns>
-    </row>
+{{> notification-card}}
 
 {{> cta}}
 
