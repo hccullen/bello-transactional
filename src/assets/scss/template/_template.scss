@@ -27,16 +27,17 @@ html,
 
 // Full Width Headers
 .header {
-  background: $secondary-color;
+  background: $primary-color;
   .logo {
     width: 40px;
     padding: 12px;
+    filter: brightness(2000%) saturate(0);
   }
 }
 .header2 {
-  background: $secondary-color;
+  background: $primary-color;
   .body-plain {
-    border-radius: 5px 5px 0 0;
+    border-radius: 6px 6px 0 0;
   }
 }
 
@@ -92,6 +93,11 @@ hr {
     margin-bottom: 0;
     padding-left: 16px;
     color: $primary-color;
+  }
+  p {
+    font-size: 16px;
+    padding-left: 16px;
+    color: $black;
   }
   p.meta {
     font-size: 14px;
